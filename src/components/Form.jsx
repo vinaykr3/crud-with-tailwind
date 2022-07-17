@@ -1,15 +1,13 @@
-import TableList from "./TableList"
 import React, { useState } from 'react'
 import { useDispatch } from "react-redux";
 const options = ["Open", "Done", "Working", "Overdue"];
 
 const Form = () => {
     const dispatch = useDispatch();
-    const [NewState, setState] = useState({
-        Timestamp: Math.floor(Date.now() / 1000), title: "", description: "", date: "", status: "Open", tags: [],
-    })
+    const [NewState, setState] = useState({ Timestamp: Math.floor(Date.now() / 1000), title: "", description: "", date: "", status: "Open", tags: [] })
     const [tag, setTag] = useState('');
     const [allTags, setAllTags] = useState([]);
+    const [toggleBtn, setToggleBtn] = useState(false);
 
     const handleOnChange = (e) => {
         // const value = e.target.value;
@@ -39,10 +37,15 @@ const Form = () => {
         setState({
             Timestamp: Math.floor(Date.now() / 1000), title: "", description: "", date: "", status: "Open", tags: [],
         })
+        setToggleBtn(false);
     }
     return (
         <>
-            <div className='md:w-full flex justify-center mt-4'>
+        <div className="flex justify-center mt-3">
+        <button onClick={() => {setToggleBtn(true)}} className='border border-blue-500 py-1 px-2 bg-blue-400 hover:bg-blue-500 text-white'>ADD NEW DATA</button>
+        </div>
+            <div className={`${toggleBtn ? 'md:w-full flex justify-center mt-4': 'hidden'}`}>
+                
                 <div className="border border-blue-400">
                     <h2 className='text-white bg-blue-400 p-4 text-lg cursor-default'>ADD NEW TO-DO ITEM</h2>
                     <div className="m-12">
@@ -82,13 +85,13 @@ const Form = () => {
                             <label htmlFor="Tag">Tags :)</label>
                             <input type="text" onChange={handleTags} onKeyPress={handleOnPress} value={tag} className='border rounded border-red-500 outline-none p-1 md:w-72 lg:w-96' placeholder='Enter Your Tags here!' />
                         </div>
-                        <div className="btn">
-                            <button onClick={handleOnClick} className='bg-blue-500 text-white px-2 py-1 rounded'>ADD NOW</button>
+                        <div className="btn flex justify-between">
+                        <button onClick={handleOnClick} className='bg-blue-500 text-white px-2 py-1 rounded'>ADD NOW</button>
+                        <button onClick={() => setToggleBtn(false)} className='border border-red-400 px-2 py-1 rounded'>CANCEL</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <TableList />
         </>
     )
 }
