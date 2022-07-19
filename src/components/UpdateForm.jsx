@@ -2,13 +2,17 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 const options = ["Open", "Done", "Working", "Overdue"];
 const UpdateForm = () => {
-    const {toggle, update} = useSelector(state => state.toggleReducer);
+    const {toggle, update} = useSelector(state => state.dataReducer);
     // console.log(update);
-    // console.log(toggle);
     const dispatch = useDispatch();
     const [tag, setTag] = useState('');
-    const handleOnChange = () => {
-
+    const [State, setState] = useState({ Timestamp: Math.floor(Date.now() / 1000), title: "", description: "", date: "", status: "Open", tags: [] })
+    console.log(State);
+    const handleOnChange = (e) => {
+        setState((preValue) => {
+            const {name, value} = e.target;
+            return {...preValue, [name]: value}
+        })
     }
     const handleOnPress = (e) => {
         if(e.key === "Enter"){
@@ -61,7 +65,7 @@ const UpdateForm = () => {
                             <input type="text" onChange={(e) => {setTag(e.target.value)}} onKeyPress={handleOnPress} value={tag} className='border rounded border-red-500 outline-none p-1 md:w-72 lg:w-96' placeholder='Enter Your Tags here!' />
                         </div>
                         <div className="btn flex justify-between">
-                            <button  className='bg-blue-500 text-white px-2 py-1 rounded'>Update Now</button>
+                            <button onClick={() => {dispatch({type: "UPDATE_DATA", payload: update.Timestamp})}} className='bg-blue-500 text-white px-2 py-1 rounded'>Update Now</button>
                             <button onClick={() => {dispatch({type: "HIDE"})}} className='border border-red-400 px-2 py-1 rounded'>CANCEL</button>
                         </div>
                     </div>

@@ -68,7 +68,7 @@ const TableList = () => {
                                                         }
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 space-x-2 py-4 whitespace-nowrap">
-                                                        <button onClick={() => dispatch({ type: "SHOW", payload: Elem })} className="border border-blue-500 bg-blue-400 hover:bg-blue-500 text-white py-[2px] px-2 hover:border-blue-500 text-bold rounded-md">Edit</button>
+                                                        <button onClick={() => dispatch({ type: "SHOW", payload: Elem.Timestamp })} className="border border-blue-500 bg-blue-400 hover:bg-blue-500 text-white py-[2px] px-2 hover:border-blue-500 text-bold rounded-md">Edit</button>
                                                         <button onClick={() => { dispatch({ type: "DELETE", payload: Elem.Timestamp }) }} className="border border-blue-500 bg-red-400 hover:bg-red-500 hover:border-red-500 text-white text-bold py-[2px] px-2 rounded-md">Delete</button>
                                                     </td>
                                                 </tr>
